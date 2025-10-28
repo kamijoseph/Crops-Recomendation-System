@@ -6,7 +6,7 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 from xgboost import XGBClassifier
-import shap
+# import shap
 
 # title and description
 st.set_page_config(
@@ -59,11 +59,11 @@ K = st.sidebar.number_input(
 )
 
 temperature = st.sidebar.number_input(
-    "Temperature (°C)", min_value=0.0, max_value=50.0, value=25.0, step=0.1
+    "Temperature (°C)", min_value=0.0, max_value=50.0, value=20.8, step=0.1
 )
 
 humidity = st.sidebar.number_input(
-    "Humidity (%)", min_value=0.0, max_value=100.0, value=80.0, step=0.1
+    "Humidity (%)", min_value=0.0, max_value=100.0, value=82.0, step=0.1
 )
 
 ph = st.sidebar.number_input(
@@ -93,7 +93,7 @@ if st.button("🌱 Recommend Crops"):
 
     # horizontal bar chart for top 3 crops
     fig, ax = plt.subplots(figsize=(6, 2))
-    ax.barh(top3_crops[::-1], top3_probs[::-1], color=['#76b041', '#a6ce39', '#dce775'])
+    ax.barh(top3_crops[::-1], top3_probs[::-1], color=["#09ea5f", "#0d8a5a", "#565f09"])
     ax.set_xlabel("Confidence (%)")
     ax.set_xlim(0, 100)
     st.pyplot(fig)
@@ -109,21 +109,24 @@ if st.button("🌱 Recommend Crops"):
         - Conditions match based on current soil & climate parameters.
         """)
 
-    try:
-        explainer = shap.TreeExplainer(model)
-        shap_values = explainer.shap_values(X_scaled)
-        st.markdown("---")
-        st.markdown("### 🔍 Feature Impact Visualization (SHAP)")
-        shap_fig = shap.force_plot(
-            explainer.expected_value[0],
-            shap_values[0],
-            pd.DataFrame(input_data, columns=['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']),
-            matplotlib=True,
-            show=False
-        )
-        st.pyplot(bbox_inches='tight', dpi=80)
-    except Exception:
-        st.info("SHAP visualization not supported in this environment. Skipping feature impact plot.")
+    # try:
+    #     explainer = shap.TreeExplainer(model)
+    #     shap_values = explainer.shap_values(X_scaled)
+    #     st.markdown("---")
+    #     st.markdown("### 🔍 Feature Impact Visualization (SHAP)")
+    #     shap_fig = shap.force_plot(
+    #         explainer.expected_value[0],
+    #         shap_values[0],
+    #         pd.DataFrame(input_data, columns=['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']),
+    #         matplotlib=True,
+    #         show=False
+    #     )
+    #     st.pyplot(bbox_inches='tight', dpi=80)
+    # except Exception:
+    #     st.info("SHAP visualization not supported in this environment. Skipping feature impact plot.")
 
 else:
     st.info("👈 Input your soil and weather data in the sidebar, then click **Recommend Crops**.")
+
+st.markdown("---")
+st.caption("Proudly by Kami | Project Shambani 🌾")
