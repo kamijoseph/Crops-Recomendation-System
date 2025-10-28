@@ -73,3 +73,26 @@ ph = st.sidebar.number_input(
 rainfall = st.sidebar.number_input(
     "Rainfall (mm)", min_value=0.0, max_value=500.0, value=200.0, step=0.1
 )
+
+# input data
+input_data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
+
+if st.button("🌱 Recommend Crops"):
+    X_scaled = scaler.transform(input_data)
+    probabilities = model.predict_proba(X_scaled)[0]
+
+    # getting top 3 predictions
+    top3_idx = np.argsort(probabilities)[::-1][:3]
+    top3_crops = encoder.inverse_transform(top3_idx)
+    top3_probs = probabilities[top3_idx] * 100
+
+    # displaying top recomendations
+    st.subheader(f"Recomended Crop: **{top3_crops[0]}**")
+    st.markdown(f"**Confidence:** {top3_probs[0]:.2f}%")
+
+    # horizontal bar chart for top 3 crops
+    fig, ax = plt.subplots(figsize=(6, 2))
+    ax.barh(top3_crops[::-1], top3_probs[::-1], color=['#76b041', '#a6ce39', '#dce775'])
+    ax.set_xlabel("Confidence (%)")
+    ax.set_xlim(0, 100)
+    st.pyplot(fig)
