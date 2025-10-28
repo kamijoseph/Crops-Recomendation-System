@@ -53,9 +53,9 @@ The project addresses this challenge by applying **machine learning** to recomme
 
 ---
 
-## 🌍 Streamlit App
+## 🌍 Streamlit WebApp
 
-🟢 **Live Demo:** [Shambani – Intelligent Crop Recommender](https://shambani.streamlit.app)
+🟢 **Live Demo:** [Shambani – Intelligent Crop Recommender](https://crops-recomendation-system.streamlit.app/)
 
 ### Features
 - **Interactive Input Form**: Users provide soil and weather parameters.
