@@ -6,6 +6,7 @@ import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
 from xgboost import XGBClassifier
+import shap
 
 # title and description
 st.set_page_config(
@@ -96,3 +97,33 @@ if st.button("🌱 Recommend Crops"):
     ax.set_xlabel("Confidence (%)")
     ax.set_xlim(0, 100)
     st.pyplot(fig)
+
+    # displaying crops insights
+    st.markdown("---")
+    st.markdown("### 🌿 Crop Suitability Insights")
+
+    for i, crop in enumerate(top3_crops):
+        st.markdown(f"""
+        **{i+1}. {crop}**  
+        - Suitability: {top3_probs[i]:.1f}%  
+        - Conditions match based on current soil & climate parameters.
+        """)
+
+    try:
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(X_scaled)
+        st.markdown("---")
+        st.markdown("### 🔍 Feature Impact Visualization (SHAP)")
+        shap_fig = shap.force_plot(
+            explainer.expected_value[0],
+            shap_values[0],
+            pd.DataFrame(input_data, columns=['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']),
+            matplotlib=True,
+            show=False
+        )
+        st.pyplot(bbox_inches='tight', dpi=80)
+    except Exception:
+        st.info("SHAP visualization not supported in this environment. Skipping feature impact plot.")
+
+else:
+    st.info("👈 Input your soil and weather data in the sidebar, then click **Recommend Crops**.")
