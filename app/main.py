@@ -39,3 +39,37 @@ def load_resources():
     return encoder, scaler, model
 
 encoder, scaler, model = load_resources()
+
+# user inputs
+st.sidebar.header(
+    "🧪 Enter Your Soil and Weather Details"
+)
+
+N = st.sidebar.number_input(
+    "Nitrogen (N)", min_value=0, max_value=200, value=90
+)
+
+P = st.sidebar.number_input(
+    "Phosphorous (P)", min_value=0, max_value=200, value=42
+)
+
+K = st.sidebar.number_input(
+    "Potassium (K)", min_value=0, max_value=200, value=43
+)
+
+temperature = st.sidebar.number_input(
+    "Temperature (°C)", min_value=0.0, max_value=50.0, value=25.0, step=0.1
+)
+
+humidity = st.sidebar.number_input(
+    "Humidity (%)", min_value=0.0, max_value=100.0, value=80.0, step=0.1
+)
+
+ph = st.sidebar.number_input(
+    "Soil pH", min_value=0.0, max_value=14.0, value=6.5, step=0.1
+
+)
+
+rainfall = st.sidebar.number_input(
+    "Rainfall (mm)", min_value=0.0, max_value=500.0, value=200.0, step=0.1
+)
