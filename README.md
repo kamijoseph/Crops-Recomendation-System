@@ -4,6 +4,10 @@
 
 ---
 
+🟢 **Live Demo:** [Shambani – Intelligent Crop Recommender](https://crops-recomendation-system.streamlit.app/)
+
+---
+
 ## 🚜 Overview
 
 **Shambani** is a machine learning–powered agricultural advisory platform that recommends the **most suitable crops** for cultivation based on real environmental and soil parameters.  
@@ -54,8 +58,6 @@ The project addresses this challenge by applying **machine learning** to recomme
 ---
 
 ## 🌍 Streamlit WebApp
-
-🟢 **Live Demo:** [Shambani – Intelligent Crop Recommender](https://crops-recomendation-system.streamlit.app/)
 
 ### Features
 - **Interactive Input Form**: Users provide soil and weather parameters.
